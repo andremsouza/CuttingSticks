@@ -8,13 +8,12 @@ typedef vector<int> vi;
 typedef vector<vi> vvi;
 
 int solve(vi &c, vvi &dp, int left, int right) {
-	if (left + 1 == right) return 0;
-	if (dp[left][right] != -1) return dp[left][right];
+	if (left + 1 == right) return 0; //se não é posível cortar entre left e right
+	if (dp[left][right] != -1) return dp[left][right]; //se já computado
 	int aux = INT_MAX;
-	for (int i = left + 1; i < right; i++)
+	for (int i = left + 1; i < right; i++) //para todos os cortes possiveis entre left e right
 		aux = min(aux,
-				solve(c, dp, left, i) + solve(c, dp, i, right) + c[right]
-																   - c[left]);
+			solve(c, dp, left, i) + solve(c, dp, i, right) + c[right] - c[left]); //queremos minimizar o valor
 	return dp[left][right] = aux;
 }
 
